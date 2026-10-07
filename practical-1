@@ -1,0 +1,47 @@
+Practical 1:
+Exploring Ethical Case Studies in AI Systems Using Python
+
+Aim: To explore an ethical case study of an AI-based student selection system and identify possible issues related to bias and fairness.
+
+Problem Statement Consider an AI system that selects students for a program based on their scores.
+
+We will examine whether the selection results are fair across different genders. 
+Dataset Student Gender Score Decision Asha F 85 Selected Rahul M 80 Selected Priya F Amit M 75 Rejected 90 Selected Neha F 82 Selected Vikas M 88 Selected
+
+Python Program # Practical: 
+
+Exploring Ethical Case Studies in AI Systems
+
+import pandas as pd  
+Create dataset data = {
+    "Student": ["Asha", "Rahul", "Priya", "Amit", "Neha", "Vikas"],
+    "Gender": ["F", "M", "F", "M", "F", "M"],
+    "Score": [85, 80, 90, 75, 82, 88]
+    }
+  df = pd.DataFrame(data)
+  # AI selection rule
+  # Students with score >= 80 are selected 
+  df["Decision"] = df["Score"].apply( lambda x: "Selected" if x >= 80 else "Rejected" )
+  print("Student Selection Results:")
+  print(df)
+  # Calculate selection rate for each gender
+  selection_rate = df.groupby("Gender")["Decision"].apply( lambda x: (x == "Selected").mean() * 100 1 )
+  print("\nSelection Rate by Gender:")
+  print(selection_rate)
+  # Display selected and rejected students
+  print("\nSelected Students:")
+  print(df[df["Decision"] == "Selected"])
+  print("\nRejected Students:")
+  print(df[df["Decision"] == "Rejected"])
+  
+  running command:
+  py -m pip install pandas
+py ".\python\data_ethics_sem_3\practical-1.py"
+  
+  Expected Output
+  Student Selection Results:
+  Student Gender  Score  Decision 0    Asha      F 1   Rahul      M 2   Priya
+  85  Selected      80  Selected F     90  Selected 3    Amit 4    Neha
+  M     75  Rejected F     82  Selected 5   Vikas      M     88 
+  Selected Selection Rate by Gender:
+  Gender F    100.000000 M     66.666667 
