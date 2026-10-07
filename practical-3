@@ -1,0 +1,33 @@
+import pandas as pd
+
+#Sample AI model results 
+
+data = { 
+    "Gender": ["F", "F", "F", "M", "M", "M"], 
+    "Actual":   [1, 1, 0, 1, 1, 0], 
+    "Predicted":[1, 1, 1, 1, 0, 0] 
+    } 
+
+df = pd.DataFrame(data) 
+
+# Demographic Parity # 
+# Selection rate = number predicted positive / total 
+
+dp = df.groupby("Gender")["Predicted"].mean() 
+
+print("Demographic Parity:") 
+print(dp) 
+
+# Equal Opportunity 
+# True Positive Rate = TP / Actual Positive 
+eo = df.groupby("Gender").apply(
+    lambda x: x[x["Actual"] == 1]["Predicted"].mean() 
+    ) 
+
+print("\nEqual Opportunity (TPR):") 
+print(eo) 
+
+
+to run this in the command :
+py -m pip install pandas
+py pratical-3.py
